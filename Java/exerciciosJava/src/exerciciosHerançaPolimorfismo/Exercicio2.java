@@ -18,7 +18,7 @@ public class Exercicio2 {
 		
 		preg.setNome("Chris");
 		preg.setIdade(16);
-		System.out.println("Essa é a preguiça do zoologico, o nome dela é " + preg.getNome() + ", tem " + preg.getIdade() + " anos, e faz um som muito estranho, ouçam: " + preg.emitirSom());
+		System.out.println("Essa é a preguiça do zoologico, o nome dela é " + preg.getNome() + ", tem " + preg.getIdade() + " anos, ela faz um som muito estranho, ouçam: " + preg.emitirSom());
 		
 		System.out.println(spitz.movimentar() + " " + mangalarga.movimentar() + " " + preg.movimentar());
 	}
