@@ -1,0 +1,1 @@
+select * from tb_produto where preco_produto > 50.00;
