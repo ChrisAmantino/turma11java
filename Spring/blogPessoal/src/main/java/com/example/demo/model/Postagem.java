@@ -25,6 +25,9 @@ public class Postagem {
 	@NotNull
 	@Size(min = 5, max = 100)
 	private String titulo;
+	
+	@NotNull
+	private int ano;
 
 	@NotNull
 	@Size(min = 10, max = 500)
@@ -77,4 +80,12 @@ public class Postagem {
 		this.tema = tema;
 	}
 
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+	
 }
