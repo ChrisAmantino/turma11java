@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,17 +28,37 @@ public class Controller implements WebMvcConfigurer {
 	@Autowired
 	private ManutencaoRepository repository;
 	
+	@Autowired
+	private Services service;
+	
 	//QUATRO MÉTODOS, GET, POST, PUT E DELETE
 	//GET BY ID. BY NOME,
-	@GetMapping("/manutencoes")
-	public List<ManutencaoTable> buscarTodos(){
-		return repository.findAll();
-	}
+	@GetMapping("/teste")
+    public ResponseEntity<List<ManutencaoTable>> listAllItens() {
+        List<ManutencaoTable> itens= service.findAllItens();
+        if(itens.isEmpty()){
+            return new ResponseEntity<List<ManutencaoTable>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<ManutencaoTable>>(itens, HttpStatus.ACCEPTED);
+    }
+
+//	@GetMapping("/manutencoes")
+//	public List<ManutencaoTable> buscarTodos(){
+//		return repository.findAll();
+//	}
 	
-	@GetMapping("/manutencoes/{id}")
-	public Optional<ManutencaoTable> buscarUm(@PathVariable Long id) {
-		return repository.findById(id);
-	}
+	//deste jeito nao retornar erro
+//	@GetMapping("/manutencoes/id/{id}")
+//	public Optional<ManutencaoTable> buscarUm(@PathVariable Long id) {
+//		return repository.findById(id);
+//	}
+		
+		@GetMapping("/manutencoes/id/{id}")
+		public ResponseEntity<ManutencaoTable> getById(@PathVariable long id){
+			return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
+					.orElse(ResponseEntity.notFound().build());
+		}
+
 	
 	@PostMapping("/manutencoes")
 	public ManutencaoTable criar(@RequestBody ManutencaoTable objetoManutencao) {

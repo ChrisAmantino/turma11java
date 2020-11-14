@@ -15,5 +15,21 @@ $scope.salvar = function() {
     
   })
   };   
+  
+  $scope.buscarTodos = function() {
+	  $http.get("http://localhost:8080/manutencoes").then(function(resposta) {
+		$scope.manutencoes = resposta.data;  
+	  });
+  }
+  $scope.buscarTodos();
 
+  $scope.put = function() {
+	  $http.put("http://localhost:8080/manutencoes/"+$scope.id, {
+		  
+		  'nome' : $scope.nome,
+		  'categoria' : $scope.categoria,
+		  
+		  'pago' : $scope.pago
+	  })
+  }
 });
